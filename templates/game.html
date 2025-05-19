@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chess Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@600&family=Fira+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="gamepage-bg">
+    <div class="game-flex-container">
+        <div class="player-side left">
+            <div class="player-info-stack">
+                <div class="player-label-pacifico namebox-player1">
+                    <span class="player-name player-name-pacifico" id="player1-name">{{ p1 }}</span>
+                </div>
+                <button class="drop-btn-player" onclick="dropMatchByPlayer(1)">Drop</button>
+                <div id="popup-left" class="player-popup"></div>
+            </div>
+        </div>
+        <div class="chess-center-area">
+            <h1 class="main-title chess-title-stylish chess-title-big">Chess Game</h1>
+            <div id="game-board"></div>
+            <div id="controls">
+                <button onclick="resetGame()" class="restart-btn">Restart Game</button>
+            </div>
+        </div>
+        <div class="player-side right">
+            <div class="player-info-stack">
+                <div class="player-label-pacifico namebox-player2">
+                    <span class="player-name player-name-pacifico" id="player2-name">{{ p2 }}</span>
+                </div>
+                <button class="drop-btn-player" onclick="dropMatchByPlayer(2)">Drop</button>
+                <div id="popup-right" class="player-popup"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.PLAYER1 = "{{ p1 }}";
+        window.PLAYER2 = "{{ p2 }}";
+        window.PLAYER1_COLOR = "Sandal";
+        window.PLAYER2_COLOR = "Black";
+    </script>
+    <script src="{{ url_for('static', filename='chess.js') }}"></script>
+</body>
+</html>

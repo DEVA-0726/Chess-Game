@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chess Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@600&family=Fira+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="homepage-bg">
+    <div class="main-center-container">
+        <div class="player-info-card" id="player-info-card">
+            <h1 class="main-title chess-title-stylish">Chess Game</h1>
+            <div class="chess-subtitle">Enter Player Names</div>
+            {% if error %}
+            <div class="error-msg animate-pop">{{ error }}</div>
+            {% endif %}
+            <form id="player-form" method="POST" autocomplete="off">
+                <div id="step-1" class="player-step">
+                    <label for="player1" class="player-label-pacifico">Player 1 Name (Sandal)</label>
+                    <input id="player1" class="player-input-professional" type="text" name="player1" maxlength="16" required autofocus>
+                    <button class="start-btn next-btn" type="button" id="next-to-player2">
+                        <span>Next</span>
+                    </button>
+                </div>
+                <div id="step-2" class="player-step" style="display:none;">
+                    <label for="player2" class="player-label-pacifico">Player 2 Name (Black)</label>
+                    <input id="player2" class="player-input-professional" type="text" name="player2" maxlength="16" required>
+                    <button class="start-btn" type="submit">
+                        <span>Start Game</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+    // Step-by-step player name entry
+    const player1Input = document.getElementById('player1');
+    const player2Input = document.getElementById('player2');
+    const nextBtn = document.getElementById('next-to-player2');
+    const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
+    player1Input.focus();
+
+    nextBtn.addEventListener('click', function() {
+        if (player1Input.value.trim() === "") {
+            player1Input.focus();
+            player1Input.classList.add('error-shake');
+            setTimeout(()=>player1Input.classList.remove('error-shake'), 500);
+            return;
+        }
+        step1.style.display = "none";
+        step2.style.display = "flex";
+        player2Input.focus();
+    });
+
+    document.getElementById('player-form').addEventListener('submit', function(e){
+        if (player2Input.value.trim() === "") {
+            player2Input.focus();
+            player2Input.classList.add('error-shake');
+            setTimeout(()=>player2Input.classList.remove('error-shake'), 500);
+            e.preventDefault();
+            return;
+        }
+        document.getElementById('player-info-card').classList.add('fade-out');
+        setTimeout(() => e.target.submit(), 550);
+    });
+    </script>
+</body>
+</html>
